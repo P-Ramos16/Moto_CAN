@@ -51,9 +51,17 @@ int main() {
     rfilter[0].can_mask = CAN_SFF_MASK;
     setsockopt(s, SOL_CAN_RAW, CAN_RAW_FILTER, &rfilter, sizeof(rfilter));
 
+    int loopCount = 0;  //  M
+
     //5.Receive data and exit
     while(1) {
         nbytes = read(s, &frame, sizeof(frame));
+
+        //  M
+        printf("Loop %5i ->", loopCount);
+        fflush(stdout);
+        loopCount++;
+
         if(nbytes > 0) {
             printf("can_id = 0x%X\r\ncan_dlc = %d \r\n", frame.can_id, frame.can_dlc);
             int i = 0;
